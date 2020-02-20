@@ -2,6 +2,12 @@ var express = require("express");
 const { check, validationResult } = require("express-validator");
 var router = express.Router();
 const userValidator = [check("name").isString(), check("email").isEmail()];
+const errorValidator = (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+};
 
 router
   .route("/")
@@ -11,10 +17,7 @@ router
     next();
   })
   .post(userValidator, (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    }
+    errorValidator(req, res);
     const name = req.body.name;
     const email = req.body.email;
     console.log(name);
