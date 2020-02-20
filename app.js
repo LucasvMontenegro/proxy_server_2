@@ -1,18 +1,16 @@
 const express = require("express");
 const app = express();
-const userRoutes = require("./routes/user");
-
-// var wiki = require('./router.js');
+const userRoutes = require("./routers/user");
 
 const autentication = function(req, res, next) {
   console.log("1 autentication");
   next();
 };
 
+app.use(autentication);
 app.use("/user", userRoutes);
 
-app.use(autentication);
-
-app.listen(3333, function() {
-  console.log("app listening on port 3333!");
+const port = 3333;
+app.listen(port, function() {
+  console.log(`app listening on port ${port}!`);
 });
