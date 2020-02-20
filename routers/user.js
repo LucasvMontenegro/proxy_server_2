@@ -5,12 +5,12 @@ router
   .route("/")
   .get((req, res, next) => {
     console.log("/ Get");
-    res.send("GET / ")
+    res.status(200).send('/ GET')
     next();
   })
   .post((req, res, next) => {
     console.log("/ Post");
-    res.send("POST / ")
+    res.status(200).send('/ POST')
     next();
   });
 
