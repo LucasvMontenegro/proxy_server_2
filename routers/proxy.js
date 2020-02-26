@@ -2,7 +2,7 @@ const express = require("express");
 const { check, validationResult } = require("express-validator");
 const router = express.Router();
 
-const userValidator = [check("name").isString(), check("email").isEmail()];
+const proxyValidator = [check("name").isString()];
 
 const errorValidator = (req, res) => {
   const errors = validationResult(req);
@@ -15,17 +15,16 @@ router
   .route("/")
   .get((req, res, next) => {
     console.log("/ Get");
-    //res.status(200).send("/ GET");
+    req.body.name += ' sobrenome2'
+    name = req.body.name;
+    console.log(name)
+    res.status(200).send(`/ GET chegou no legado ${name}`);
     next();
   })
-  .post(userValidator, (req, res, next) => {
+  .post(proxyValidator, (req, res, next) => {
     errorValidator(req, res);
     const name = req.body.name;
-    const email = req.body.email;
-    console.log(name);
-    console.log(email);
-    console.log("/ Post");
-    res.status(200).send(`/ POST ${name}, ${email} `);
+    res.status(200).send(`/ POST ${name}`);
     next();
   });
 
