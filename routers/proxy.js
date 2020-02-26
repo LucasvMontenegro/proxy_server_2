@@ -24,6 +24,7 @@ router
     console.log("/ POST");
     const name = req.body.name;
     console.log(name)
+    console.log(res.body)
     res.status(200).send(`/ POST chegou no legado ${name}`);
     next();
   });
