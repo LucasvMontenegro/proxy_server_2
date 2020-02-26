@@ -15,16 +15,16 @@ router
   .route("/")
   .get((req, res, next) => {
     console.log("/ Get");
-    req.body.name += ' sobrenome2'
-    name = req.body.name;
+    const name = req.body.name;
     console.log(name)
     res.status(200).send(`/ GET chegou no legado ${name}`);
     next();
   })
   .post(proxyValidator, (req, res, next) => {
-    errorValidator(req, res);
+    console.log("/ POST");
     const name = req.body.name;
-    res.status(200).send(`/ POST ${name}`);
+    console.log(name)
+    res.status(200).send(`/ POST chegou no legado ${name}`);
     next();
   });
 
